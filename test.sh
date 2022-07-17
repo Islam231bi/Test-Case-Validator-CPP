@@ -5,15 +5,15 @@ TESTCASE=$2
 ANSFILE=$3
 OBJFILE="${CPPFILE%.*}"
 
-g++ $CPPFILE -o $OBJFILE
+g++ $CPPFILE -o $OBJFILE    
 
-
+RETVAL=$?
 correct=0
 count=0
 
-if [ $? -ne 0 ]
+if [ $RETVAL -ne 0 ]
 then
-   echo "Wrong Submission" && ./$OBJFILE
+   echo "Compilation Error"
 else
    ./$OBJFILE < $TESTCASE > "out.txt"
 
@@ -24,15 +24,15 @@ else
 	 ((correct++))
       fi
    done 3<$ANSFILE 4<"out.txt"
-fi
 
-echo "Correct cases: $correct"
-let "val=$count-$correct"
-echo "Wrong cases: $val"
+   echo "Correct cases: $correct"
+   let "val=$count-$correct"
+   echo "Wrong cases: $val"
 
-if [ $correct -eq $count ]
-then
-    echo "Successful Submission"
-else
-    echo "Wrong Submission"
+   if [ $correct -eq $count ]
+   then
+      echo "Successful Submission"
+   else
+      echo "Wrong Submission"
+   fi
 fi
