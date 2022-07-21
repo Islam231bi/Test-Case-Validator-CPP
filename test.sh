@@ -21,7 +21,7 @@ else
    then
    	while read -u 3 -r line1 && read -u 4 -r line2; do
       		((count++))
-      		if [ $line1 == $line2 ]
+      		if [ "$line1" == "$line2" ]
       		then
 	 		((correct++))
       		fi
